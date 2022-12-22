@@ -68,13 +68,13 @@ def get_cell(self):
 
 def choice(self):
     if get_click() == coords[1]:
-        Flag == 1
+        Flag = 1
     elif get_click() == coords[2]:
-        Flag == 2
+        Flag = 2
     elif get_click() == coords[3]:
-        Flag == 3
+        Flag = 3
     elif get_click() == coords[4]:
-        Flag == 4
+        Flag = 4
 
 def perekl_okon(self):
     if Flag == 1:
