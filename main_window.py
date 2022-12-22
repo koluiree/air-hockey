@@ -34,6 +34,9 @@ def terminate():
 
 
 class StartScreen:
+    def __init__(self, pos=(0, 0)):
+        self.mouse_pos = pos
+
     def start_screen(self):
         intro_text = ["Начать игру", "",
                       "Настройки",
@@ -102,8 +105,10 @@ def switch_window(self):
 if __name__ == '__main__':
     pygame.init()
     running = True
+    start_screen = StartScreen()
     while running:
-        StartScreen.start_screen(StartScreen)
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
-                pass
+                start_screen = StartScreen(event.pos)
+
+
