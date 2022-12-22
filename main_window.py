@@ -67,21 +67,15 @@ class StartScreen:
             pygame.display.flip()
             clock.tick(FPS)
 
-    def get_click(self, mouse_pos):
-        pass
-
-    def get_cell(self):
-        pass
-
     def choice(self):
-        """if get_click() == coords[1]:
-            Flag = 1
-        elif get_click() == coords[2]:
-            Flag = 2
-        elif get_click() == coords[3]:
-            Flag = 3
-        elif get_click() == coords[4]:
-            Flag = 4"""
+        if self.mouse_pos == coords[1]:
+            print(4)
+        elif self.mouse_pos == coords[2]:
+            print(3)
+        elif self.mouse_pos == coords[3]:
+            print(2)
+        elif self.mouse_pos == coords[4]:
+            print(1)
 
 
 def switch_window(self):
@@ -105,10 +99,9 @@ def switch_window(self):
 if __name__ == '__main__':
     pygame.init()
     running = True
-    start_screen = StartScreen()
+    main_menu = StartScreen()
     while running:
+        main_menu.start_screen()
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
-                start_screen = StartScreen(event.pos)
-
-
+                main_menu = StartScreen(event.pos)
