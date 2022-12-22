@@ -25,12 +25,14 @@ def load_image(name, colorkey=None):
         image = image.convert_alpha()
     return image
 
-class StartScreen:
-    def terminate():
-        pygame.quit()
-        sys.exit()
 
-    def start_screen():
+def terminate():
+    pygame.quit()
+    sys.exit()
+        
+
+class StartScreen:
+    def start_screen(self):
         intro_text = ["Начать игру", "",
                       "Настройки",
                       "Скины и прочее",
