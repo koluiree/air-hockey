@@ -7,7 +7,7 @@ FPS = 50
 size = WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
-coords = ['какие-то координаты экранных кнопок']
+coords = {'start_game': (), 'settings': (), 'skins': (), 'rules': (), 'quit': ()}
 Flag = 0
 
 
@@ -38,17 +38,17 @@ class StartScreen:
         self.mouse_pos = pos
 
     def start_screen(self):
-        intro_text = ["Начать игру", "",
+        intro_text = ["Начать игру",
                       "Настройки",
                       "Скины и прочее",
-                      'Инструкция',
+                      'Правила',
                       "Выход"]
 
         fon = pygame.transform.scale(load_image('sastavka_more.jpg'), (WIDTH, HEIGHT))
         screen.blit(fon, (0, 0))
         font = pygame.font.Font(None, 30)
         text_coord = 100
-        for line in intro_text:
+        for line, setting in zip(intro_text, coords):
             string_rendered = font.render(line, 1, pygame.Color('white'))
             intro_rect = string_rendered.get_rect()
             text_coord += 30
@@ -56,6 +56,9 @@ class StartScreen:
             intro_rect.x = WIDTH / 2 - 80
             text_coord += intro_rect.height
             screen.blit(string_rendered, intro_rect)
+            coords[setting] = intro_rect
+        print(coords)
+
 
         while True:
             for event in pygame.event.get():
@@ -68,13 +71,13 @@ class StartScreen:
             clock.tick(FPS)
 
     def choice(self):
-        if self.mouse_pos == coords[1]:
+        if self.mouse_pos == coords['start_game']:
             print(4)
-        elif self.mouse_pos == coords[2]:
+        elif self.mouse_pos == coords['settings']:
             print(3)
-        elif self.mouse_pos == coords[3]:
+        elif self.mouse_pos == coords['skins']:
             print(2)
-        elif self.mouse_pos == coords[4]:
+        elif self.mouse_pos == coords['quit']:
             print(1)
 
 
