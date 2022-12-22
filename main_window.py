@@ -87,8 +87,9 @@ def rules(mouse_pos):
     fon = pygame.transform.scale(load_image('sastavka_more.jpg'), (WIDTH, HEIGHT))
     screen.blit(fon, (0, 0))
     font = pygame.font.Font(None, 30)
-    back_button_cords = None
-
+    back_button_cords2 = font.render(rules[7], 1, 'white')
+    back_button_cords = back_button_cords2.get_rect()
+    print(back_button_cords)
     text_coord = 100
     for line in rules:
         string_rendered = font.render(line, 1, 'white')
@@ -98,11 +99,17 @@ def rules(mouse_pos):
         text_rect.x = WIDTH / 2 - 200
         text_coord += text_rect.height
         screen.blit(string_rendered, text_rect)
-        if line == "Вернуться":
-            back_button_cords = text_rect
-     
-        if back_button_cords.collidepoint(mouse_pos[0], mouse_pos[1]):
-            start_screen()
+        print(mouse_pos[0], mouse_pos[1])
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                start_screen()
+            elif event.type == pygame.MOUSEBUTTONDOWN and back_button_cords.collidepoint(mouse_pos[0], mouse_pos[1]) :
+                start_screen()
+                print(1)
+        pygame.display.flip()
+        clock.tick(FPS)
 
 
 if __name__ == '__main__':
