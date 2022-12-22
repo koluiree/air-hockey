@@ -77,7 +77,7 @@ Class StartScreen():
         elif get_click() == coords[4]:
             Flag = 4
 
-def perekl_okon(self):
+def switch_window(self):
     if Flag == 1:
         pass
         #okno igri
