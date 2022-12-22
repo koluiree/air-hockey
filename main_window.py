@@ -2,12 +2,14 @@ import os
 import sys
 
 import pygame
+
 FPS = 50
-size = WIDTH, HEIGHT = 800,600
+size = WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 coords = ['какие-то координаты экранных кнопок']
 Flag = 0
+
 
 def load_image(name, colorkey=None):
     fullname = os.path.join('data', name)
@@ -29,7 +31,7 @@ def load_image(name, colorkey=None):
 def terminate():
     pygame.quit()
     sys.exit()
-        
+
 
 class StartScreen:
     def start_screen(self):
@@ -63,35 +65,35 @@ class StartScreen:
             clock.tick(FPS)
 
     def get_click(self, mouse_pos):
-        cell = self.get_cell(mouse_pos)
-        self.on_click(cell)
+        pass
 
     def get_cell(self):
         pass
 
     def choice(self):
-        if get_click() == coords[1]:
+        """if get_click() == coords[1]:
             Flag = 1
         elif get_click() == coords[2]:
             Flag = 2
         elif get_click() == coords[3]:
             Flag = 3
         elif get_click() == coords[4]:
-            Flag = 4
+            Flag = 4"""
+
 
 def switch_window(self):
     if Flag == 1:
         pass
-        #okno igri
+        # okno igri
     elif Flag == 2:
         pass
-        #okno menu skinov
+        # okno menu skinov
     elif Flag == 3:
         pass
-        #okno menu nastroek(rasmer okna tam ili eshe cho, svuk meibi(peoshe musiku postavit)
+        # okno menu nastroek(rasmer okna tam ili eshe cho, svuk meibi(peoshe musiku postavit)
     elif Flag == 4:
         pass
-        #okno dla pravil igri.....
+        # okno dla pravil igri.....
     elif Flag == '':
         pass
         # and tak dalee
@@ -99,8 +101,9 @@ def switch_window(self):
 
 if __name__ == '__main__':
     pygame.init()
-    start_screen()
     running = True
     while running:
+        StartScreen.start_screen(StartScreen)
         for event in pygame.event.get():
-            pass
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pass
