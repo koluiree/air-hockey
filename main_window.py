@@ -25,7 +25,7 @@ def load_image(name, colorkey=None):
         image = image.convert_alpha()
     return image
 
-Class StartScreen():
+class StartScreen:
     def terminate():
         pygame.quit()
         sys.exit()
