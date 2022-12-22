@@ -32,7 +32,7 @@ def terminate():
     sys.exit()
 
 
-def start_screen(mouse_pos):
+def start_screen():
     intro_text = ["Начать игру",
                   "Настройки",
                   "Скины и прочее",
@@ -53,31 +53,63 @@ def start_screen(mouse_pos):
         screen.blit(string_rendered, text_rect)
         coords[setting] = text_rect
 
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                terminate()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                choice(event.pos)
+        pygame.display.flip()
+        clock.tick(FPS)
+
 
 def choice(mouse_pos):
-    # print(mouse_pos)
-    # print(True if coords['start_game'].collidepoint(mouse_pos[0], mouse_pos[1]) else False)
     if coords['start_game'].collidepoint(mouse_pos[0], mouse_pos[1]):
-        switch_window()
+        pass
     elif coords['settings'].collidepoint(mouse_pos[0], mouse_pos[1]):
-        switch_window()
+        pass
     elif coords['skins'].collidepoint(mouse_pos[0], mouse_pos[1]):
-        switch_window()
+        pass
     elif coords['rules'].collidepoint(mouse_pos[0], mouse_pos[1]):
-        switch_window()
+        rules(mouse_pos)
     elif coords['quit'].collidepoint(mouse_pos[0], mouse_pos[1]):
         terminate()
 
 
-def switch_window():
-    pass
+def rules(mouse_pos):
+    rules = ("Управление:",
+             "A - движение влево",
+             "D - движение вправо",
+             "W - движение вверх",
+             "S - движение вниз",
+             "Не попадайся на бомбы, иначе игра закончится!", "", "Вернуться")
+
+    fon = pygame.transform.scale(load_image('sastavka_more.jpg'), (WIDTH, HEIGHT))
+    screen.blit(fon, (0, 0))
+    font = pygame.font.Font(None, 30)
+    back_button_cords = None
+
+    text_coord = 100
+    for line in rules:
+        string_rendered = font.render(line, 1, 'white')
+        text_rect = string_rendered.get_rect()
+        text_coord += 30
+        text_rect.top = text_coord
+        text_rect.x = WIDTH / 2 - 200
+        text_coord += text_rect.height
+        screen.blit(string_rendered, text_rect)
+        if line == "Вернуться":
+            back_button_cords = text_rect
+     
+        if back_button_cords.collidepoint(mouse_pos[0], mouse_pos[1]):
+            start_screen()
 
 
 if __name__ == '__main__':
     pygame.init()
     running = True
+    start_screen()
     while running:
-        start_screen(pygame.mouse.get_pos())
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 terminate()
