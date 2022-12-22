@@ -25,56 +25,57 @@ def load_image(name, colorkey=None):
         image = image.convert_alpha()
     return image
 
-def terminate():
-    pygame.quit()
-    sys.exit()
+Class StartScreen():
+    def terminate():
+        pygame.quit()
+        sys.exit()
 
-def start_screen():
-    intro_text = ["Начать игру", "",
-                  "Настройки",
-                  "Скины и прочее",
-                  'Инструкция',
-                  "Выход"]
+    def start_screen():
+        intro_text = ["Начать игру", "",
+                      "Настройки",
+                      "Скины и прочее",
+                      'Инструкция',
+                      "Выход"]
 
-    fon = pygame.transform.scale(load_image('sastavka_more.jpg'), (WIDTH, HEIGHT))
-    screen.blit(fon, (0, 0))
-    font = pygame.font.Font(None, 30)
-    text_coord = 100
-    for line in intro_text:
-        string_rendered = font.render(line, 1, pygame.Color('white'))
-        intro_rect = string_rendered.get_rect()
-        text_coord += 30
-        intro_rect.top = text_coord
-        intro_rect.x = WIDTH / 2 - 80
-        text_coord += intro_rect.height
-        screen.blit(string_rendered, intro_rect)
+        fon = pygame.transform.scale(load_image('sastavka_more.jpg'), (WIDTH, HEIGHT))
+        screen.blit(fon, (0, 0))
+        font = pygame.font.Font(None, 30)
+        text_coord = 100
+        for line in intro_text:
+            string_rendered = font.render(line, 1, pygame.Color('white'))
+            intro_rect = string_rendered.get_rect()
+            text_coord += 30
+            intro_rect.top = text_coord
+            intro_rect.x = WIDTH / 2 - 80
+            text_coord += intro_rect.height
+            screen.blit(string_rendered, intro_rect)
 
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                terminate()
-            elif event.type == pygame.KEYDOWN or \
-                    event.type == pygame.MOUSEBUTTONDOWN:
-                return  # начинаем игру
-        pygame.display.flip()
-        clock.tick(FPS)
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    terminate()
+                elif event.type == pygame.KEYDOWN or \
+                        event.type == pygame.MOUSEBUTTONDOWN:
+                    return  # начинаем игру
+            pygame.display.flip()
+            clock.tick(FPS)
 
-def get_click(self, mouse_pos):
-    cell = self.get_cell(mouse_pos)
-    self.on_click(cell)
+    def get_click(self, mouse_pos):
+        cell = self.get_cell(mouse_pos)
+        self.on_click(cell)
 
-def get_cell(self):
-    pass
+    def get_cell(self):
+        pass
 
-def choice(self):
-    if get_click() == coords[1]:
-        Flag = 1
-    elif get_click() == coords[2]:
-        Flag = 2
-    elif get_click() == coords[3]:
-        Flag = 3
-    elif get_click() == coords[4]:
-        Flag = 4
+    def choice(self):
+        if get_click() == coords[1]:
+            Flag = 1
+        elif get_click() == coords[2]:
+            Flag = 2
+        elif get_click() == coords[3]:
+            Flag = 3
+        elif get_click() == coords[4]:
+            Flag = 4
 
 def perekl_okon(self):
     if Flag == 1:
