@@ -85,18 +85,14 @@ def rules(mouse_pos):
     fon = pygame.transform.scale(load_image('menu.jpg'), (WIDTH, HEIGHT))
     screen.blit(fon, (0, 0))
     font = pygame.font.Font(None, 29)
-    font1 = pygame.font.Font(None, 30)
-    text_coord = 200
+    text_coord = 100
     for line in rules:
-        string_rendered = font.render(line, 1, 'white')
-        string_rendered1 = font1.render(line, 1, 'black')
-
+        string_rendered = font.render(line, 1, 'yellow4')
         text_rect = string_rendered.get_rect()
-        text_coord += 30
+        text_coord += 70
         text_rect.top = text_coord
         text_rect.x = WIDTH / 2 - 300
         text_coord += text_rect.height
-        screen.blit(string_rendered1, text_rect)
         screen.blit(string_rendered, text_rect)
 
 
