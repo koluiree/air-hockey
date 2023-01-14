@@ -4,7 +4,7 @@ import sys
 import pygame
 
 FPS = 50
-size = WIDTH, HEIGHT = 800, 600
+size = WIDTH, HEIGHT = 600, 800
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 coords = {'start_game': (), 'settings': (), 'skins': (), 'rules': (), 'quit': ()}
@@ -39,14 +39,14 @@ def start_screen():
                   "Правила",
                   "Выход"]
 
-    fon = pygame.transform.scale(load_image('sastavka_more.jpg'), (WIDTH, HEIGHT))
+    fon = pygame.transform.scale(load_image('menu.jpg'), (WIDTH, HEIGHT))
     screen.blit(fon, (0, 0))
     font = pygame.font.Font(None, 30)
-    text_coord = 100
+    text_coord = 150
     for line, setting in zip(intro_text, coords):
         string_rendered = font.render(line, 1, 'white')
         text_rect = string_rendered.get_rect()
-        text_coord += 30
+        text_coord += 35
         text_rect.top = text_coord
         text_rect.x = WIDTH / 2 - 80
         text_coord += text_rect.height
@@ -77,39 +77,49 @@ def choice(mouse_pos):
 
 
 def rules(mouse_pos):
-    rules = ("Управление:",
-             "A - движение влево",
-             "D - движение вправо",
-             "W - движение вверх",
-             "S - движение вниз",
-             "Не попадайся на бомбы, иначе игра закончится!", "", "Вернуться")
+    rules = ("W, A, S, D - движение первого игрока",
+             "Стрелки на клавиатуре - движение второго игрока",
+             "Забейте шайбу в ворота противника, чтобы заработать очко",
+             "Игра продолжается до 7 голов")
 
-    fon = pygame.transform.scale(load_image('sastavka_more.jpg'), (WIDTH, HEIGHT))
+    fon = pygame.transform.scale(load_image('menu.jpg'), (WIDTH, HEIGHT))
     screen.blit(fon, (0, 0))
-    font = pygame.font.Font(None, 30)
-    back_button_cords2 = font.render(rules[7], 1, 'white')
-    back_button_cords = back_button_cords2.get_rect()
-    print(back_button_cords)
-    text_coord = 100
+    font = pygame.font.Font(None, 29)
+    font1 = pygame.font.Font(None, 30)
+    text_coord = 200
     for line in rules:
         string_rendered = font.render(line, 1, 'white')
+        string_rendered1 = font1.render(line, 1, 'black')
+
         text_rect = string_rendered.get_rect()
         text_coord += 30
         text_rect.top = text_coord
-        text_rect.x = WIDTH / 2 - 200
+        text_rect.x = WIDTH / 2 - 300
         text_coord += text_rect.height
+        screen.blit(string_rendered1, text_rect)
         screen.blit(string_rendered, text_rect)
-        print(mouse_pos[0], mouse_pos[1])
+
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 start_screen()
-            elif event.type == pygame.MOUSEBUTTONDOWN and back_button_cords.collidepoint(mouse_pos[0], mouse_pos[1]) :
-                start_screen()
-                print(1)
         pygame.display.flip()
         clock.tick(FPS)
+
+
+"""class Border(pygame.sprite.Sprite):
+    # строго вертикальный или строго горизонтальный отрезок
+    def __init__(self, x1, y1, x2, y2):
+        super().__init__(all_sprites)
+        if x1 == x2:  # вертикальная стенка
+            self.add(vertical_borders)
+            self.image = pygame.Surface([1, y2 - y1])
+            self.rect = pygame.Rect(x1, y1, 1, y2 - y1)
+        else:  # горизонтальная стенка
+            self.add(horizontal_borders)
+            self.image = pygame.Surface([x2 - x1, 1])
+            self.rect = pygame.Rect(x1, y1, x2 - x1, 1)"""
 
 
 if __name__ == '__main__':
