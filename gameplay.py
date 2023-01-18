@@ -177,6 +177,4 @@ def game():
         pygame.display.flip()
         clock.tick(50)
     pygame.quit()
-
-
-game()
+    
