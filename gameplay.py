@@ -46,6 +46,7 @@ class Border(pygame.sprite.Sprite):
 class Puck(pygame.sprite.Sprite):
     def __init__(self, radius, x, y):
         super().__init__(all_sprites)
+        self.add(puck_group)
         self.radius = radius
         self.image = pygame.transform.scale(load_image('puck.png', colorkey=-1), (70, 70))
         self.rect = pygame.Rect(x, y, 2 * radius, 2 * radius)
@@ -57,8 +58,6 @@ class Puck(pygame.sprite.Sprite):
         if pygame.sprite.spritecollideany(self, horizontal_borders):
             self.vy = -self.vy
         if pygame.sprite.spritecollideany(self, vertical_borders):
-            self.vx = -self.vx
-        if pygame.sprite.spritecollideany(self, pads):
             self.vx = -self.vx
 
 
@@ -75,13 +74,13 @@ class Pad1(pygame.sprite.Sprite):
 
     def keydown(self, event):
         if event.key == K_UP:
-            self.paddle1_vel = -8
+            self.paddle1_vel = -5
         elif event.key == K_DOWN:
-            self.paddle1_vel = 8
+            self.paddle1_vel = 5
         elif event.key == K_LEFT:
-            self.paddle1_vel = -8
+            self.paddle1_vel = -5
         elif event.key == K_RIGHT:
-            self.paddle1_vel = 8
+            self.paddle1_vel = 5
         self.event_key = event.key
         self.update()
 
@@ -98,6 +97,14 @@ class Pad1(pygame.sprite.Sprite):
             self.paddle1_vel = 0
         if pygame.sprite.spritecollideany(self, vertical_borders):
             self.paddle1_vel = 0
+        if pygame.sprite.spritecollideany(self, puck_group) and self.event_key in (K_UP, K_DOWN):
+            self.rect.y -= 2 * self.paddle1_vel
+        if pygame.sprite.spritecollideany(self, puck_group) and self.event_key in (K_LEFT, K_RIGHT):
+            self.rect.x -= 2 * self.paddle1_vel
+        if pygame.sprite.spritecollideany(self, puck_group):
+            self.rect.y -= 3 * self.paddle1_vel
+
+
 
 
 class Pad2(pygame.sprite.Sprite):
@@ -112,13 +119,13 @@ class Pad2(pygame.sprite.Sprite):
 
     def keydown(self, event):
         if event.key == K_w:
-            self.paddle2_vel = -8
+            self.paddle2_vel = -5
         elif event.key == K_s:
-            self.paddle2_vel = 8
+            self.paddle2_vel = 5
         elif event.key == K_a:
-            self.paddle2_vel = -8
+            self.paddle2_vel = -5
         elif event.key == K_d:
-            self.paddle2_vel = 8
+            self.paddle2_vel = 5
 
         self.event_key = event.key
         self.update()
@@ -132,12 +139,23 @@ class Pad2(pygame.sprite.Sprite):
             self.rect.y += self.paddle2_vel
         elif self.event_key in (K_a, K_d):
             self.rect.x += self.paddle2_vel
+        if pygame.sprite.spritecollideany(self, horizontal_borders):
+            self.paddle2_vel = 0
+        if pygame.sprite.spritecollideany(self, vertical_borders):
+            self.paddle2_vel = 0
+        #if pygame.sprite.spritecollideany(self, puck_group) and self.event_key in (K_UP, K_DOWN):
+            self.rect.y -= 3 * self.paddle2_vel
+        #if pygame.sprite.spritecollideany(self, puck_group) and self.event_key in (K_LEFT, K_RIGHT):
+            self.rect.x -= 3 * self.paddle2_vel
+
 
 
 all_sprites = pygame.sprite.Group()
 horizontal_borders = pygame.sprite.Group()
 vertical_borders = pygame.sprite.Group()
 pads = pygame.sprite.Group()
+puck_group = pygame.sprite.Group()
+
 
 Border(25, 20, 195, 20)
 Border(405, 20, WIDTH - 25, 20)
@@ -177,4 +195,3 @@ def game():
         pygame.display.flip()
         clock.tick(50)
     pygame.quit()
-    
