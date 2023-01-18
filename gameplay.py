@@ -144,7 +144,7 @@ Border(405, 20, WIDTH - 25, 20)
 Border(195, 5, 405, 5)
 
 Border(25, HEIGHT - 20, 195, HEIGHT - 25)
-Border(405, HEIGHT - 25, WIDTH - 25, HEIGHT - 25)
+Border(405, HEIGHT - 20, WIDTH - 25, HEIGHT - 20)
 
 
 Border(25, 25, 25, HEIGHT - 25)
