@@ -103,7 +103,11 @@ class Puck(pygame.sprite.Sprite):
                 self.vy = - 1800 // 360
             elif main_menu.diff == 'Medium':
                 self.vx = - random.randint(360, 900) // 360
-                self.vy = - 900 // 360                     # - random.randint(720, 1800) // 360
+                self.vy = - 900 // 360
+            else:
+                self.vx = - random.randint(720, 1800) // 360
+                self.vy = - 1800 // 360
+                                                            # - random.randint(720, 1800) // 360
         if pygame.sprite.spritecollideany(self, vorotas1):
             ochko_sverhu += 1
             self.rect = pygame.Rect(self.x, self.y, 2 * self.radius, 2 * self.radius)
@@ -239,7 +243,7 @@ pad1 = Pad1(37, WIDTH / 2 - 35, HEIGHT / 2 + 150)
 def game():
     global ochko_sverhu
     fon = pygame.transform.scale(load_image('field.png', colorkey=-1), (WIDTH, HEIGHT))
-    
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
