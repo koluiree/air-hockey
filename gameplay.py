@@ -1,6 +1,4 @@
 import os
-import random
-import time
 
 from pygame.locals import *
 import pygame
@@ -46,7 +44,7 @@ class Border(pygame.sprite.Sprite):
             self.rect = pygame.Rect(x1, y1, x2 - x1, 1)
 
 
-class goal2(pygame.sprite.Sprite):  # ворота верхнего игрока
+class Goal2(pygame.sprite.Sprite):  # ворота верхнего игрока
     def __init__(self, x1, y1, x2, y2):
         super().__init__(all_sprites)
         if x1 == x2:
@@ -59,7 +57,7 @@ class goal2(pygame.sprite.Sprite):  # ворота верхнего игрока
             self.rect = pygame.Rect(x1, y1, x2 - x1, 1)
 
 
-class goal1(pygame.sprite.Sprite):  # ворота нижнего игрока
+class Goal1(pygame.sprite.Sprite):  # ворота нижнего игрока
     def __init__(self, x1, y1, x2, y2):
         super().__init__(all_sprites)
         if x1 == x2:
@@ -78,7 +76,6 @@ class Puck(pygame.sprite.Sprite):  # класс шайбы
         self.x = x
         self.y = y
         self.radius = radius
-        self.add(puck_group)
         self.radius = radius
         self.image = pygame.transform.scale(load_image('puck.png', colorkey=-1), (70, 70))
         self.rect = pygame.Rect(x, y, 2 * radius, 2 * radius)
@@ -223,12 +220,8 @@ all_sprites = pygame.sprite.Group()
 horizontal_borders = pygame.sprite.Group()
 vertical_borders = pygame.sprite.Group()
 
-pads = pygame.sprite.Group()
-
 pad1_group = pygame.sprite.Group()
 pad2_group = pygame.sprite.Group()
-
-puck_group = pygame.sprite.Group()
 
 goal2_group = pygame.sprite.Group()  # группа для ворот верхнего игрока
 goal1_group = pygame.sprite.Group()  # группа для ворот нижнего игрока
@@ -240,8 +233,8 @@ Border(405, HEIGHT - 20, WIDTH - 25, HEIGHT - 20)  # нижняя, справа
 Border(25, 20, 25, HEIGHT - 20)  # левая
 Border(WIDTH - 25, 20, WIDTH - 25, HEIGHT - 20)  # правая
 
-goal2(195, 5, 405, 5)
-goal1(195, HEIGHT - 5, 405, HEIGHT - 5)
+Goal2(195, 5, 405, 5)
+Goal1(195, HEIGHT - 5, 405, HEIGHT - 5)
 
 puck = Puck(37, WIDTH / 2 - 35, HEIGHT / 2 - 35)
 
@@ -276,7 +269,6 @@ def game():
                 if event.key == pygame.K_ESCAPE:
                     paused()
 
-
             elif event.type == KEYUP:
                 if event.key in (K_w, K_s, K_a, K_d):
                     pad2.keyup(event)
@@ -298,8 +290,8 @@ def game():
             screen.blit(win_second_text, text_rect)
             pygame.display.flip()
         else:
-            counter_first = font.render(str(player1_point), 1, 'black')
-            counter_second = font.render(str(player2_point), 1, 'black')
+            counter_first = font.render(str(player2_point), 1, 'black')
+            counter_second = font.render(str(player1_point), 1, 'black')
 
             screen.blit(fon, (0, 0))
             screen.blit(counter_first, (50, 30))
@@ -308,5 +300,5 @@ def game():
             all_sprites.draw(screen)
             all_sprites.update()
             pygame.display.flip()
+        pygame.display.set_caption(f'Игра. Счёт: {player2_point}:{player1_point}')
         clock.tick(120)
-    pygame.quit()
