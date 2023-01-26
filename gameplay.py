@@ -79,12 +79,24 @@ class Puck(pygame.sprite.Sprite):  # класс шайбы
         self.radius = radius
         self.image = pygame.transform.scale(load_image('puck.png', colorkey=-1), (70, 70))
         self.rect = pygame.Rect(x, y, 2 * radius, 2 * radius)
-        self.vx = 3
-        self.vy = 3
+        self.difficulty = main_menu.diff
+        self.vx = 4
+        self.vy = 4
+
 
     def update(self):
         global player2_point, player1_point
+        if main_menu.diff == 'Easy':
+            self.vx = 2 if self.vx > 0 else -2
+            self.vy = 2 if self.vy > 0 else -2
+        elif main_menu.diff == 'Medium':
+            self.vx = 3 if self.vx > 0 else -3
+            self.vy = 3 if self.vy > 0 else -3
+        elif main_menu.diff == 'Hardcore':
+            self.vx = 4 if self.vx > 0 else -4
+            self.vy = 4 if self.vy > 0 else -4
         self.rect = self.rect.move(self.vx, self.vy)
+        print(main_menu.diff, self.vx, self.vy)
         if pygame.sprite.spritecollideany(self, horizontal_borders):
             self.vy = -self.vy
         if pygame.sprite.spritecollideany(self, vertical_borders):
@@ -281,11 +293,11 @@ def game():
                 player2_point = 0
                 main_menu.start_screen()
 
-        if player1_point == 7 or main_menu.diff == 'Easy':
+        if player1_point == 7:
             win = True
             screen.blit(win_first_text, text_rect)
             pygame.display.flip()
-        elif player2_point == 7 or main_menu.diff == 'Easy':
+        elif player2_point == 7:
             win = True
             screen.blit(win_second_text, text_rect)
             pygame.display.flip()

@@ -9,7 +9,7 @@ screen = pygame.display.set_mode(size)
 coords = {'start_game': (), 'settings': (), 'skins': (), 'rules': (), 'quit': (), 'difficulty': ()}
 difffficult_to_c = {'Easy': (), 'Medium': (), "Hardcore": ()}
 clock = pygame.time.Clock()
-diff = 'hardcore'
+diff = ''
 
 
 def load_image(name, colorkey=None):
@@ -84,6 +84,7 @@ def difficulty():
         text_coord += text_rect.height
         screen.blit(string_rendered, text_rect)
         difffficult_to_c[difficultyy] = text_rect
+        print(difffficult_to_c)
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -103,6 +104,7 @@ def choice_of_difficulty(mouse_pos):
         diff = 'Medium'
     if difffficult_to_c['Hardcore'].collidepoint(mouse_pos[0], mouse_pos[1]):
         diff = 'Hardcore'
+    print(diff)
 
 
 def choice(mouse_pos):
